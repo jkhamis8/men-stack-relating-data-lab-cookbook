@@ -7,9 +7,11 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require("express-session");
-const appController = require('./controllers/auth.js')
+const authController = require('./controllers/auth.js')
 const isSignedIn = require("./middleware/is-signed-in");
-const applicationsController = require('./controllers/applications.js');
+
+const recipesController = require('./controllers/recipes.js');
+const ingredientsController = require('./controllers/ingredients.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
@@ -35,23 +37,15 @@ app.use(session({
 
 app.use(passUserToView);
 
-app.get('/', (req, res) => {
-  // Check if the user is signed in
-  if (req.session.user) {
-    // Redirect signed-in users to their applications index
-    res.redirect(`/users/${req.session.user._id}/applications`);
-  } else {
-    // Show the homepage for users who are not signed in
-    res.render('index.ejs');
-  }
-});
-
-app.use("/auth", appController)
+app.use("/auth", authController)
+app.use('/recipes', recipesController);
+app.use('/ingredients', ingredientsController);
 
 app.use(isSignedIn)
 
-app.use('/users/:userId/applications', applicationsController); // New!
-
+app.get('/', async (req, res) => {
+  res.render('recipes/index.ejs');
+});
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });
