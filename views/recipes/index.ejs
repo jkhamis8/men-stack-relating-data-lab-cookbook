@@ -8,8 +8,21 @@
 </head>
 
 <body>
-  <h1>Welcome to My Recipes</h1>
-  <a href="/recipes/new">Add New Recipe</a>
+  <%- include('../partials/_navbar.ejs') %>
+    <h1>Welcome to My Recipes</h1>
+    <h1>All Recipes</h1>
+    <ul>
+      <% Recipes.forEach(Recipe=> { %>
+        <li>
+          <a href="/recipes/<%=Recipe._id%>">
+            <%= Recipe.name %>-<%= Recipe.instructions %><br>
+                <%= Recipe.ingredients%>
+          </a>
+        </li>
+        <% }); %>
+    </ul>
+
+    <a href="/recipes/new">Add New Recipe</a>
 </body>
 
 </html>

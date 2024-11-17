@@ -10,18 +10,18 @@
 </head>
 
 <body>
+  <%- include('../partials/_navbar.ejs') %>
+    <h1>Edit Recipe!</h1>
+    <form action="/recipes/<%= Recipes._id %>?_method=PUT" method="POST">
+      <label for="name">Recipe Name:</label>
+      <input type="text" name="name" id="name" value="<%= Recipes.name %>" />
+      <label for="instructions">instructions:</label>
+      <input type="text" name="instructions" id="instructions" value="<%= Recipes.instructions %>" />
+      <label for="ingredients">ingredients:</label>
+      <input type="text" name="ingredients" id="ingredients" value="<%= Recipes.ingredients %>" />
 
-  <h1>Edit Recipe!</h1>
-  <form action="/Recipes/<%= Recipes._id %>?_method=PUT" method="POST">
-    <label for="name">Recipe Name:</label>
-    <input type="text" name="name" id="name" value="<%= Recipes.name %>" />
-    <label for="instructions">instructions:</label>
-    <input type="text" name="instructions" id="instructions" value="<%= Recipes.instructions %>" />
-    <label for="ingredients">ingredients:</label>
-    <input type="text" name="ingredients" id="ingredients" value="<%= Recipes.ingredients %>" />
-
-    <button type="submit">Update Recipe</button>
-  </form>
+      <button type="submit">Update Recipe</button>
+    </form>
 
 </body>
 

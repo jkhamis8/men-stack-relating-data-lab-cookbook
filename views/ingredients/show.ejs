@@ -10,18 +10,19 @@
 </head>
 
 <body>
-  <h1>
-    <%= ingredientsObj.brand %>
-  </h1>
+  <%- include('../partials/_navbar.ejs') %>
+    <h1>
+      <%= ingredientsObj.brand %>
+    </h1>
 
-  <!-- new delete button -->
-  <form action="/ingredients/<%=ingredientsObj._id%>?_method=DELETE" method="POST">
-    <button type="submit">Delete <%= ingredientsObj.brand %></button>
-  </form>
-  <form action="/ingredients/<%=ingredientsObj._id%>/edit">
-    <button type="submit">Edit <%= ingredientsObj.brand %></button>
-  </form>
-  <a href="/ingredients">Back to Ingredients</a>
+    <!-- new delete button -->
+    <form action="/ingredients/<%=ingredientsObj._id%>?_method=DELETE" method="POST">
+      <button type="submit">Delete <%= ingredientsObj.brand %></button>
+    </form>
+    <form action="/ingredients/<%=ingredientsObj._id%>/edit">
+      <button type="submit">Edit <%= ingredientsObj.brand %></button>
+    </form>
+    <a href="/ingredients">Back to Ingredients</a>
 </body>
 
 </html>

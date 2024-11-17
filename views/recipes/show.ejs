@@ -10,18 +10,22 @@
 </head>
 
 <body>
-  <h1>
-    <%= Recipes.name %>
-  </h1>
-
-  <!-- new delete button -->
-  <form action="/recipes/<%=Recipes._id%>?_method=DELETE" method="POST">
-    <button type="submit">Delete <%= Recipes.name %></button>
-  </form>
-  <form action="/recipes/<%=Recipes._id%>/edit">
-    <button type="submit">Edit <%= Recipes.name %></button>
-  </form>
-  <a href="/recipes">Back to Recipes</a>
+  <%- include('../partials/_navbar.ejs') %>
+    <h1>
+      <%= Recipes.name %>
+    </h1>
+    <h2>
+      <%= Recipes.instructions %><br>
+        <%= Recipes.ingredients%>
+    </h2>
+    <!-- new delete button -->
+    <form action="/recipes/<%=Recipes._id%>?_method=DELETE" method="POST">
+      <button type="submit">Delete <%= Recipes.name %></button>
+    </form>
+    <form action="/recipes/<%=Recipes._id%>/edit">
+      <button type="submit">Edit <%= Recipes.name %></button>
+    </form>
+    <a href="/recipes">Back to Recipes</a>
 </body>
 
 </html>

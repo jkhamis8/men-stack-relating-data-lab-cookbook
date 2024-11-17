@@ -3,6 +3,7 @@ const router = express.Router();
 
 const User = require('../models/user.js');
 const Recipe = require('../models/recipe.js');
+const Ingredients = require('../models/ingredients.js');
 
 router.get('/', async (req, res) => {
   const Recipes = await Recipe.find()
@@ -10,42 +11,43 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/new', async (req, res) => {
-  res.render('recipes/new.ejs');
+  const ingredients = await Ingredients.find()
+  res.render('recipes/new.ejs', { ingredients })
 });
 
-router.post('/', async (req, res) => {
+router.post('/new', async (req, res) => {
   try {
     const newRecipe = new Recipe(req.body);
     newRecipe.owner = req.session.user._id
     await newRecipe.save();
     res.redirect("/");
   } catch (error) {
-    // Handle errors
+    console.log('error');
   }
 });
 
 router.get('/:recipeId', async (req, res) => {
-  const id = req.params.id
+  const id = req.params.recipeId
   const Recipes = await Recipe.findById(id)
-  res.render('/show.ejs', { Recipes })
+  res.render('recipes/show.ejs', { Recipes })
 });
 
 router.get('/:recipeId/edit', async (req, res) => {
-  const id = req.params.id
+  const id = req.params.recipeId
   const Recipes = await Recipe.findById(id)
-  res.render('/edit.ejs', { Recipes })
+  res.render('recipes/edit.ejs', { Recipes })
 });
 
-router.put('/:recipeId/edit', async (req, res) => {
-  const id = req.params.id
+router.put('/:recipeId', async (req, res) => {
+  const id = req.params.recipeId
   const Recipes = await Recipe.findById(id)
   Recipes.set(req.body)
   Recipes.save()
-  res.render('/show.ejs', { Recipes })
+  res.render('recipes/show.ejs', { Recipes })
 });
 
-router.delete('/:recipeId/edit', async (req, res) => {
-  await Recipe.findByIdAndDelete(req.params.id);
+router.delete('/:recipeId', async (req, res) => {
+  await Recipe.findByIdAndDelete(req.params.recipeId);
   res.redirect("/");
 });
 

@@ -44,7 +44,7 @@ app.use('/ingredients', ingredientsController);
 app.use(isSignedIn)
 
 app.get('/', async (req, res) => {
-  res.render('recipes/index.ejs');
+  res.redirect('/recipes');
 });
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
